@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lebak Kananga - Kedai Kopi Alami & Area Alam Terbuka Cinangka</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pine: {
+                            50: '#f2f8f4',
+                            100: '#e1ede4',
+                            200: '#c5dccb',
+                            300: '#9ebea6',
+                            600: '#32583e',
+                            800: '#1e3827',
+                            900: '#14271c',
+                            dark: '#0c1a12'
+                        },
+                        oak: {
+                            50: '#FAF7F2',
+                            100: '#F3EDE2',
+                            200: '#E7DCB9',
+                            400: '#C7A882',
+                            700: '#7A5B3E',
+                            800: '#4A3525',
+                            900: '#2E1F14'
+                        },
+                        sand: {
+                            50: '#FBF9F5',
+                            100: '#F5F1E8',
+                            200: '#EBE4D5'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Lora', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome & Google Fonts (Lora for soothing serif headers, Plus Jakarta Sans for soft text) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    
+    <style>
+        .adem-bg-gradient {
+            background: linear-gradient(180deg, rgba(20, 39, 28, 0.72) 0%, rgba(12, 26, 18, 0.90) 100%);
+        }
+        .soft-card-shadow {
+            box-shadow: 0 10px 30px -10px rgba(30, 56, 39, 0.08);
+        }
+        .breeze-float {
+            animation: breeze 6s ease-in-out infinite;
+        }
+        @keyframes breeze {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(0.5deg); }
+        }
+    </style>
+</head>
+<body class="bg-sand-50 text-slate-700 font-sans antialiased selection:bg-pine-800 selection:text-sand-100">
+
+    <!-- Navigation Header -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16 bg-white/85 backdrop-blur-md rounded-2xl px-6 border border-oak-100 shadow-sm">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-pine-800 text-amber-200 flex items-center justify-center text-base shadow-sm group-hover:scale-105 transition duration-300">
+                        <i class="fa-solid fa-tree text-emerald-300"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif font-medium text-lg tracking-tight text-pine-900 block leading-none">Lebak Kananga</span>
+                        <span class="text-[10px] uppercase tracking-widest text-oak-700 font-semibold block mt-1">Kedai Kopi & Alam Terbuka</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8 text-xs font-medium tracking-wide text-slate-600">
+                    <a href="#beranda" class="hover:text-pine-800 transition flex items-center gap-2"><i class="fa-solid fa-leaf text-pine-300"></i> Beranda</a>
+                    <a href="#kedai-kopi" class="hover:text-pine-800 transition flex items-center gap-2"><i class="fa-solid fa-mug-hot text-oak-400"></i> Kopi & Ruang Adem</a>
+                    <a href="#lokasi" class="hover:text-pine-800 transition flex items-center gap-2"><i class="fa-solid fa-location-dot text-pine-300"></i> Lokasi & Akses</a>
+                    <button onclick="openAdminLoginModal()" class="text-slate-400 hover:text-pine-800 transition flex items-center gap-1.5 font-normal"><i class="fa-solid fa-lock text-[10px]"></i> Admin</button>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden sm:flex items-center">
+                    <button onclick="contactWA('Halo Admin Lebak Kananga, saya berminat mampir ke Kedai Kopi & Alam Terbuka')" 
+                       class="bg-pine-800 hover:bg-pine-900 text-sand-50 px-5 py-2.5 rounded-xl font-medium text-xs tracking-wide transition flex items-center gap-2 shadow-sm border border-pine-700">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                        <span>Tanya Tempat & Kopi</span>
+                    </button>
+                </div>
+
+                <!-- Mobile menu toggle -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-pine-900 hover:bg-oak-50 focus:outline-none" aria-label="Menu">
+                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden max-w-6xl mx-auto px-4 mt-2">
+            <div class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl p-5 border border-oak-100 space-y-3">
+                <a href="#beranda" class="mobile-link block text-slate-700 text-sm font-medium py-2 px-3 rounded-xl hover:bg-pine-50"><i class="fa-solid fa-leaf text-pine-600 mr-2"></i> Beranda</a>
+                <a href="#kedai-kopi" class="mobile-link block text-slate-700 text-sm font-medium py-2 px-3 rounded-xl hover:bg-pine-50"><i class="fa-solid fa-mug-hot text-oak-700 mr-2"></i> Kopi & Ruang Adem</a>
+                <a href="#lokasi" class="mobile-link block text-slate-700 text-sm font-medium py-2 px-3 rounded-xl hover:bg-pine-50"><i class="fa-solid fa-location-dot text-pine-600 mr-2"></i> Lokasi & Akses Maps</a>
+                <button onclick="openAdminLoginModal()" class="w-full text-left text-slate-500 text-xs font-medium py-2 px-3 rounded-xl hover:bg-pine-50 flex items-center gap-2"><i class="fa-solid fa-lock text-slate-400"></i> Panel Admin Website</button>
+                <hr class="border-oak-100 my-2">
+                <button onclick="contactWA('Halo Admin, mau tanya seputar Lebak Kananga')" class="w-full bg-pine-800 text-sand-50 px-4 py-3 rounded-xl text-xs font-medium text-center flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
+                    <span>Tanya Admin via WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Status Banner Bar (Shows when Admin is logged in) -->
+    <div id="admin-status-bar" class="hidden fixed top-0 left-0 right-0 z-[60] bg-amber-500 text-pine-900 px-4 py-2 text-xs font-semibold shadow-md flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-sm"></i>
+            <span>Mode Admin Aktif - Anda dapat mengedit teks & gambar secara live.</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="openAdminPanelModal()" class="bg-pine-900 text-amber-200 px-3 py-1 rounded-lg hover:bg-pine-800 transition text-[11px] flex items-center gap-1.5">
+                <i class="fa-solid fa-pen-to-square"></i> Edit Konten Website
+            </button>
+            <button onclick="logoutAdmin()" class="bg-rose-700 text-white px-2.5 py-1 rounded-lg hover:bg-rose-800 transition text-[11px]">
+                <i class="fa-solid fa-right-from-bracket"></i> Keluar
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section (Halaman Depan) -->
+    <section id="beranda" class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+        <!-- Hero Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img id="display-hero-bg" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80" 
+                 alt="Lebak Kananga Alam Terbuka" 
+                 class="w-full h-full object-cover object-center scale-105 transition-all duration-700">
+            <div class="absolute inset-0 adem-bg-gradient"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-amber-200 text-xs font-light tracking-widest uppercase mb-6 backdrop-blur-md breeze-float">
+                <i class="fa-solid fa-wind text-emerald-300 text-xs"></i>
+                <span id="display-hero-badge">Suasana Adem & Asri di Cinangka, Serang</span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-relaxed sm:leading-tight text-white tracking-tight">
+                <span id="display-hero-title1">Menikmati Seduhan Kopi &</span> <br>
+                <span id="display-hero-title2" class="italic font-light text-amber-200/90">Angin Sejuk di Area Alam Terbuka</span>
+            </h1>
+
+            <p id="display-hero-subtitle" class="text-sand-100/90 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed mt-6">
+                Lebak Kananga menyajikan sudut rehat yang tenang. Tempat berteduh menikmati harum kopi seduh, terpaan angin perbukitan, serta hamparan rumput hijau yang adem untuk melepas lelah.
+            </p>
+
+            <!-- Nature Feature Badges -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mt-10">
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-white text-left flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-amber-300 flex-shrink-0">
+                        <i class="fa-solid fa-mug-hot text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xs font-serif text-amber-200 font-medium">Kedai Kopi Alami</h2>
+                        <p class="text-[11px] text-sand-100/80 font-light mt-0.5">Seduhan hangat & poci tradisional</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-white text-left flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-emerald-300 flex-shrink-0">
+                        <i class="fa-solid fa-tree text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xs font-serif text-amber-200 font-medium">Lahan Terbuka Hijau</h2>
+                        <p class="text-[11px] text-sand-100/80 font-light mt-0.5">Udara bersih & pepohonan rimbun</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-white text-left flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-amber-300 flex-shrink-0">
+                        <i class="fa-solid fa-campground text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xs font-serif text-amber-200 font-medium">Area Santai & Camp</h2>
+                        <p class="text-[11px] text-sand-100/80 font-light mt-0.5">Saung lesehan & tempat berkemah</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10">
+                <a href="#kedai-kopi" class="bg-amber-200 hover:bg-amber-300 text-oak-900 font-medium px-7 py-3.5 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-xs tracking-wide">
+                    <i class="fa-solid fa-mug-saucer"></i>
+                    <span>Jelajahi Suasana Kedai Kopi</span>
+                </a>
+                <a href="#lokasi" class="bg-white/10 hover:bg-white/20 text-white font-medium px-7 py-3.5 rounded-xl border border-white/20 transition backdrop-blur-sm flex items-center justify-center gap-2 text-xs tracking-wide">
+                    <i class="fa-solid fa-location-dot text-emerald-300"></i>
+                    <span>Petunjuk Lokasi & Akses</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Kedai Kopi & Ruang Adem Section -->
+    <section id="kedai-kopi" class="py-20 bg-sand-100 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span id="display-kedai-badge" class="text-[11px] font-medium tracking-widest uppercase text-oak-700 bg-oak-100 px-4 py-1 rounded-full border border-oak-200">
+                    <i class="fa-solid fa-mug-saucer mr-1"></i> Ruang Adem & Kopi Tubruk
+                </span>
+                <h2 id="display-kedai-title" class="font-serif text-2xl sm:text-4xl font-normal text-pine-900 mt-4 leading-tight">
+                    Kedai Kopi Alami Lebak Kananga
+                </h2>
+                <p id="display-kedai-desc" class="text-slate-600 mt-3 text-xs sm:text-sm leading-relaxed font-light">
+                    Jauh dari kebisingan kota. Nikmati kehangatan cangkir kopi pilihan di tengah padang hijau terbuka dengan hembusan angin adem perbukitan Cinangka.
+                </p>
+            </div>
+
+            <!-- Content Grid Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl p-6 border border-oak-100 soft-card-shadow flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 rounded-xl overflow-hidden mb-5 relative">
+                            <img id="display-card1-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Kopi Seduh Alami" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-pine-900/80 text-amber-200 text-[9px] uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
+                                Seduhan Hangat
+                            </span>
+                        </div>
+                        <h3 id="display-card1-title" class="font-serif text-lg font-medium text-pine-900">Kopi Seduh & Teh Poci</h3>
+                        <p id="display-card1-desc" class="text-xs text-slate-600 mt-2 leading-relaxed font-light">
+                            Citarasa Kopi Tubruk khas, Kopi Susu Aren manis alami, Teh Hangat Poci, serta Es Kelapa Segar yang menyejukkan dahaga.
+                        </p>
+                    </div>
+                    <div class="pt-5 border-t border-slate-100 mt-5 flex items-center justify-between text-xs text-oak-700 font-medium">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-leaf text-emerald-600"></i> Biji Pilihan</span>
+                        <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl p-6 border border-oak-100 soft-card-shadow flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 rounded-xl overflow-hidden mb-5 relative">
+                            <img id="display-card2-img" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Saung Adem Lesehan" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-pine-900/80 text-amber-200 text-[9px] uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
+                                Lesehan Adem
+                            </span>
+                        </div>
+                        <h3 id="display-card2-title" class="font-serif text-lg font-medium text-pine-900">Saung & Lahan Terbuka</h3>
+                        <p id="display-card2-desc" class="text-xs text-slate-600 mt-2 leading-relaxed font-light">
+                            Saung-saung kayu bersahaja untuk lesehan santai bersama teman dan keluarga, dikelilingi pepohonan hijau nan adem.
+                        </p>
+                    </div>
+                    <div class="pt-5 border-t border-slate-100 mt-5 flex items-center justify-between text-xs text-oak-700 font-medium">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-wind text-emerald-600"></i> Angin Sejuk</span>
+                        <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl p-6 border border-oak-100 soft-card-shadow flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 rounded-xl overflow-hidden mb-5 relative">
+                            <img id="display-card3-img" src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Camilan & Teman Ngopi" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-pine-900/80 text-amber-200 text-[9px] uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
+                                Teman Ngopi
+                            </span>
+                        </div>
+                        <h3 id="display-card3-title" class="font-serif text-lg font-medium text-pine-900">Camilan Desa & Kemping</h3>
+                        <p id="display-card3-desc" class="text-xs text-slate-600 mt-2 leading-relaxed font-light">
+                            Sajian hangat pisang goreng renyah, singkong goreng, serta lahan lapang bagi Anda yang ingin mendirikan tenda camp.
+                        </p>
+                    </div>
+                    <div class="pt-5 border-t border-slate-100 mt-5 flex items-center justify-between text-xs text-oak-700 font-medium">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-campground text-emerald-600"></i> Area Lapang</span>
+                        <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Atmosphere Callout Card -->
+            <div class="mt-12 bg-pine-900 text-sand-50 rounded-2xl p-8 border border-pine-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+                <div class="space-y-2 text-center md:text-left">
+                    <span class="text-[10px] font-medium uppercase tracking-widest text-amber-300">Suasana Alam Syahdu</span>
+                    <h3 class="font-serif text-xl sm:text-2xl font-normal">Ingin Ngopi & Menginap Kemping?</h3>
+                    <p class="text-xs text-sand-100/80 max-w-lg font-light leading-relaxed">
+                        Nikmati malam adem beratap bintang di area alam terbuka Lebak Kananga. Tersedia tempat camp luas dan nyaman untuk rombongan maupun keluarga.
+                    </p>
+                </div>
+                <button onclick="contactWA('Halo Admin, saya berminat ngopi sekaligus kemping di Lebak Kananga')" 
+                   class="bg-amber-200 hover:bg-amber-300 text-pine-900 font-medium px-6 py-3 rounded-xl transition text-xs whitespace-nowrap shadow-sm flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Tanya Info Camp & Kedai</span>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lokasi & Akses Section (Tanpa Embed Map - Cukup Direct Link) -->
+    <section id="lokasi" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <span class="text-[11px] font-medium tracking-widest text-pine-800 uppercase bg-pine-50 px-4 py-1 rounded-full border border-pine-100">
+                    <i class="fa-solid fa-map-pin mr-1"></i> Lokasi & Akses
+                </span>
+                <h2 class="font-serif text-2xl sm:text-4xl font-normal text-pine-900 mt-4">
+                    Petunjuk Lokasi Lebak Kananga
+                </h2>
+                <p class="text-slate-600 mt-2 text-xs sm:text-sm font-light">
+                    Kawasan alam yang mudah dijangkau kendaraan roda dua maupun roda empat dari jalur utama Cinangka, Serang, Banten.
+                </p>
+            </div>
+
+            <!-- Clean Direct Maps Link Card -->
+            <div class="bg-sand-50 rounded-3xl p-8 sm:p-10 border border-oak-100 soft-card-shadow text-center space-y-6">
+                
+                <div class="w-16 h-16 rounded-2xl bg-pine-800 text-amber-200 flex items-center justify-center text-2xl mx-auto shadow-sm">
+                    <i class="fa-solid fa-compass"></i>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="font-serif text-xl font-medium text-pine-900">Lebak Kananga Camp Area & Kedai Kopi</h3>
+                    <p id="display-address-text" class="text-xs sm:text-sm text-slate-600 font-light max-w-md mx-auto leading-relaxed">
+                        Cinangka, Kec. Cinangka, Kabupaten Serang, Banten 42167
+                    </p>
+                </div>
+
+                <!-- Info Badges -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left max-w-2xl mx-auto pt-2">
+                    <div class="bg-white p-3.5 rounded-xl border border-oak-100 text-xs">
+                        <span class="text-pine-800 font-medium block"><i class="fa-solid fa-car text-amber-600 mr-1.5"></i> Akses Kendaraan</span>
+                        <span class="text-slate-500 text-[11px] font-light mt-0.5 block">Jalan kondusif untuk Motor & Mobil</span>
+                    </div>
+
+                    <div class="bg-white p-3.5 rounded-xl border border-oak-100 text-xs">
+                        <span class="text-pine-800 font-medium block"><i class="fa-solid fa-square-parking text-emerald-600 mr-1.5"></i> Area Parkir</span>
+                        <span class="text-slate-500 text-[11px] font-light mt-0.5 block">Tersedia parkir kendaraan aman</span>
+                    </div>
+
+                    <div class="bg-white p-3.5 rounded-xl border border-oak-100 text-xs">
+                        <span class="text-pine-800 font-medium block"><i class="fa-solid fa-restroom text-pine-600 mr-1.5"></i> Fasilitas Umum</span>
+                        <span class="text-slate-500 text-[11px] font-light mt-0.5 block">Toilet bersih & mushola</span>
+                    </div>
+                </div>
+
+                <!-- DIRECT GOOGLE MAPS LINK BUTTON -->
+                <div class="pt-4 max-w-md mx-auto">
+                    <a id="display-maps-link" 
+                       href="https://www.google.com/maps/place/Lebak+Kananga+Camp+Area/@-6.1489175,105.8688306,19.25z/data=!4m15!1m8!3m7!1s0x2e4229f02c9e0c7b:0xe53071bf26d0a670!2sKec.+Cinangka,+Kabupaten+Serang,+Banten!3b1!8m2!3d-6.1397554!4d105.8631768!16s%2Fg%2F11c1p82q_8!3m5!1s0x2e4180b41df47e17:0x82776fe36077a1b8!8m2!3d-6.1492248!4d105.8701892!16s%2Fg%2F11gg72zr6c?entry=ttu" 
+                       target="_blank" 
+                       rel="noopener" 
+                       class="inline-flex items-center justify-center gap-3 w-full bg-pine-800 hover:bg-pine-900 text-sand-50 font-medium py-4 px-6 rounded-2xl shadow-md transition text-xs sm:text-sm tracking-wide group border border-pine-700">
+                        <i class="fa-solid fa-map-location-dot text-amber-300 text-lg group-hover:scale-110 transition"></i>
+                        <span>Buka Petunjuk Arah di Google Maps</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-200/80"></i>
+                    </a>
+                    <p class="text-[11px] text-slate-400 font-light mt-2.5">
+                        Klik tombol di atas untuk membuka lokasi secara presisi di aplikasi Google Maps HP Anda.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-pine-dark text-sand-100 py-12 border-t border-pine-900">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10 text-center md:text-left">
+                
+                <div class="space-y-2">
+                    <div class="flex items-center justify-center md:justify-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-pine-800 text-emerald-300 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-tree"></i>
+                        </div>
+                        <span class="font-serif font-medium text-lg text-white">Lebak Kananga</span>
+                    </div>
+                    <p class="text-xs text-sand-100/70 font-light max-w-md">
+                        Kedai Kopi Alami & Area Alam Terbuka di Kec. Cinangka, Kabupaten Serang, Banten. Tempat santai dengan udara adem dan suasana sejuk pedesaan.
+                    </p>
+                </div>
+
+                <div class="space-y-1 text-xs text-sand-100/80 font-light">
+                    <p><i class="fa-solid fa-phone text-amber-300 mr-2"></i> <span id="display-footer-phone">+62 812-9850-505</span></p>
+                    <p><i class="fa-solid fa-location-dot text-amber-300 mr-2"></i> Cinangka, Serang, Banten 42167</p>
+                    <p class="pt-2">
+                        <button onclick="openAdminLoginModal()" class="text-[11px] text-amber-300/70 hover:text-amber-200 underline flex items-center gap-1 mx-auto md:mx-0">
+                            <i class="fa-solid fa-user-lock text-[10px]"></i> Login Pengelola Admin
+                        </button>
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-sand-100/50 font-light gap-3">
+                <p>&copy; 2026 Lebak Kananga - Kedai Kopi Alami & Camp Area. Hak Cipta Dilindungi.</p>
+                <a href="#beranda" class="hover:underline text-amber-200/80">Kembali ke Atas <i class="fa-solid fa-arrow-up ml-1 text-[10px]"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Action Badge -->
+    <button onclick="contactWA('Halo Admin Lebak Kananga, saya berminat mampir ke Kedai Kopi & Alam Terbuka')" 
+            class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-700 text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-xl flex items-center gap-3 transition transform hover:scale-105 border border-white/30"
+            aria-label="Tanya via WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="hidden sm:inline font-medium text-xs tracking-wide">Tanya Kopi & Tempat</span>
+    </button>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="admin-login-modal" class="fixed inset-0 z-[70] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-oak-100 space-y-4 relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-full bg-pine-100 text-pine-800 flex items-center justify-center mx-auto text-xl mb-2">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <h3 class="font-serif text-lg font-medium text-pine-900">Login Admin Website</h3>
+                <p class="text-xs text-slate-500 font-light">Masukkan kata sandi untuk mengedit teks & gambar.</p>
+            </div>
+            
+            <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-3 pt-2">
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-700 mb-1">Password Admin</label>
+                    <input type="password" id="admin-password-input" placeholder="Masukkan password..." required
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-pine-800 focus:outline-none">
+                    <p class="text-[10px] text-slate-400 mt-1 italic">Password Bawaan: <span class="font-mono text-pine-800 font-semibold">kananga123</span></p>
+                </div>
+                <div id="login-error-msg" class="hidden text-[11px] text-rose-600 bg-rose-50 p-2 rounded-lg text-center">
+                    Password salah! Silakan coba lagi.
+                </div>
+                <button type="submit" class="w-full bg-pine-800 hover:bg-pine-900 text-sand-50 py-2.5 rounded-xl text-xs font-medium transition shadow-sm">
+                    Masuk ke Panel Admin
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN EDIT CMS MODAL -->
+    <div id="admin-cms-modal" class="fixed inset-0 z-[75] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-end">
+        <div class="bg-white w-full max-w-xl h-full shadow-2xl flex flex-col overflow-hidden">
+            <!-- Modal Header -->
+            <div class="bg-pine-900 text-white p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-pen-to-square text-amber-300 text-lg"></i>
+                    <div>
+                        <h3 class="font-serif font-medium text-base">Edit Teks & Gambar Website</h3>
+                        <p class="text-[11px] text-sand-100/70 font-light">Ubah konten langsung & simpan secara permanen</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminPanelModal()" class="text-sand-100/70 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Form Body (Scrollable) -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 text-xs text-slate-700 bg-sand-50">
+                
+                <!-- Section 1: Halaman Depan / Hero -->
+                <div class="bg-white p-4 rounded-xl border border-oak-100 space-y-3">
+                    <h4 class="font-semibold text-pine-900 flex items-center gap-2 text-sm border-b pb-2">
+                        <i class="fa-solid fa-mountain-sun text-amber-600"></i> Section 1: Hero Halaman Depan
+                    </h4>
+                    <div>
+                        <label class="block font-medium mb-1">Badge Teks Atas</label>
+                        <input type="text" id="input-heroBadge" class="w-full p-2 border rounded-lg text-xs">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-medium mb-1">Judul Utama (Baris 1)</label>
+                            <input type="text" id="input-heroTitle1" class="w-full p-2 border rounded-lg text-xs">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1">Judul Sorotan (Baris 2)</label>
+                            <input type="text" id="input-heroTitle2" class="w-full p-2 border rounded-lg text-xs">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-1">Deskripsi/Subjudul Hero</label>
+                        <textarea id="input-heroSubtitle" rows="3" class="w-full p-2 border rounded-lg text-xs"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-1">URL Gambar Latar Hero (Background Image Link)</label>
+                        <input type="text" id="input-heroBgUrl" class="w-full p-2 border rounded-lg text-xs font-mono text-[11px]">
+                    </div>
+                </div>
+
+                <!-- Section 2: Kedai Kopi & Kartu -->
+                <div class="bg-white p-4 rounded-xl border border-oak-100 space-y-3">
+                    <h4 class="font-semibold text-pine-900 flex items-center gap-2 text-sm border-b pb-2">
+                        <i class="fa-solid fa-mug-saucer text-oak-700"></i> Section 2: Kedai Kopi & Kartu
+                    </h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-medium mb-1">Badge Kedai</label>
+                            <input type="text" id="input-kedaiBadge" class="w-full p-2 border rounded-lg text-xs">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1">Judul Section Kedai</label>
+                            <input type="text" id="input-kedaiTitle" class="w-full p-2 border rounded-lg text-xs">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-1">Deskripsi Kedai Kopi</label>
+                        <textarea id="input-kedaiDesc" rows="2" class="w-full p-2 border rounded-lg text-xs"></textarea>
+                    </div>
+
+                    <!-- Cards Customization -->
+                    <hr class="my-2 border-slate-100">
+                    <p class="font-semibold text-pine-800 text-[11px]">Kartu 1: Kopi Seduh</p>
+                    <input type="text" id="input-card1Title" placeholder="Judul Kartu 1" class="w-full p-2 border rounded-lg text-xs mb-2">
+                    <textarea id="input-card1Desc" placeholder="Deskripsi Kartu 1" rows="2" class="w-full p-2 border rounded-lg text-xs mb-2"></textarea>
+                    <input type="text" id="input-card1Img" placeholder="URL Gambar Kartu 1" class="w-full p-2 border rounded-lg text-xs font-mono text-[11px]">
+
+                    <hr class="my-2 border-slate-100">
+                    <p class="font-semibold text-pine-800 text-[11px]">Kartu 2: Saung & Lesehan</p>
+                    <input type="text" id="input-card2Title" placeholder="Judul Kartu 2" class="w-full p-2 border rounded-lg text-xs mb-2">
+                    <textarea id="input-card2Desc" placeholder="Deskripsi Kartu 2" rows="2" class="w-full p-2 border rounded-lg text-xs mb-2"></textarea>
+                    <input type="text" id="input-card2Img" placeholder="URL Gambar Kartu 2" class="w-full p-2 border rounded-lg text-xs font-mono text-[11px]">
+
+                    <hr class="my-2 border-slate-100">
+                    <p class="font-semibold text-pine-800 text-[11px]">Kartu 3: Camilan & Area Camp</p>
+                    <input type="text" id="input-card3Title" placeholder="Judul Kartu 3" class="w-full p-2 border rounded-lg text-xs mb-2">
+                    <textarea id="input-card3Desc" placeholder="Deskripsi Kartu 3" rows="2" class="w-full p-2 border rounded-lg text-xs mb-2"></textarea>
+                    <input type="text" id="input-card3Img" placeholder="URL Gambar Kartu 3" class="w-full p-2 border rounded-lg text-xs font-mono text-[11px]">
+                </div>
+
+                <!-- Section 3: Kontak & Password Admin -->
+                <div class="bg-white p-4 rounded-xl border border-oak-100 space-y-3">
+                    <h4 class="font-semibold text-pine-900 flex items-center gap-2 text-sm border-b pb-2">
+                        <i class="fa-solid fa-phone text-emerald-600"></i> Section 3: Kontak & Keamanan
+                    </h4>
+                    <div>
+                        <label class="block font-medium mb-1">Nomor WhatsApp Pengelola (Format 62...)</label>
+                        <input type="text" id="input-waPhone" class="w-full p-2 border rounded-lg text-xs font-mono">
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-1">Alamat Teks Lokasi</label>
+                        <input type="text" id="input-addressText" class="w-full p-2 border rounded-lg text-xs">
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-1">Ubah Password Admin</label>
+                        <input type="password" id="input-adminPassword" class="w-full p-2 border rounded-lg text-xs font-mono">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="p-4 bg-white border-t border-slate-200 flex items-center justify-between gap-3">
+                <button onclick="resetToDefaultData()" class="px-3 py-2 text-slate-500 hover:text-rose-600 text-xs font-medium flex items-center gap-1">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Bawaan
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="closeAdminPanelModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium">
+                        Batal
+                    </button>
+                    <button onclick="saveAdminCMSData()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-medium shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-notif" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-[100] bg-pine-900 text-amber-200 px-5 py-3 rounded-2xl shadow-2xl border border-pine-700 text-xs font-medium hidden flex items-center gap-2 transition-all">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toast-text">Perubahan berhasil disimpan!</span>
+    </div>
+
+    <!-- FIREBASE & CMS SCRIPT MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Configuration setup
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'lebak-kananga-app';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' 
+            ? JSON.parse(__firebase_config) 
+            : {
+                // Fallback config if environment provides standard defaults
+                apiKey: "",
+                authDomain: "lebak-kananga.firebaseapp.com",
+                projectId: "lebak-kananga",
+                storageBucket: "lebak-kananga.appspot.com",
+            };
+
+        // Initialize Firebase Services
+        let app, auth, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+        } catch (e) {
+            console.warn("Firebase initialization notice:", e);
+        }
+
+        // Default Site Content
+        const DEFAULT_SITE_CONTENT = {
+            heroBadge: "Suasana Adem & Asri di Cinangka, Serang",
+            heroTitle1: "Menikmati Seduhan Kopi &",
+            heroTitle2: "Angin Sejuk di Area Alam Terbuka",
+            heroSubtitle: "Lebak Kananga menyajikan sudut rehat yang tenang. Tempat berteduh menikmati harum kopi seduh, terpaan angin perbukitan, serta hamparan rumput hijau yang adem untuk melepas lelah.",
+            heroBgUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80",
+            
+            kedaiBadge: "Ruang Adem & Kopi Tubruk",
+            kedaiTitle: "Kedai Kopi Alami Lebak Kananga",
+            kedaiDesc: "Jauh dari kebisingan kota. Nikmati kehangatan cangkir kopi pilihan di tengah padang hijau terbuka dengan hembusan angin adem perbukitan Cinangka.",
+            
+            card1Title: "Kopi Seduh & Teh Poci",
+            card1Desc: "Citarasa Kopi Tubruk khas, Kopi Susu Aren manis alami, Teh Hangat Poci, serta Es Kelapa Segar yang menyejukkan dahaga.",
+            card1Img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
+            
+            card2Title: "Saung & Lahan Terbuka",
+            card2Desc: "Saung-saung kayu bersahaja untuk lesehan santai bersama teman dan keluarga, dikelilingi pepohonan hijau nan adem.",
+            card2Img: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80",
+            
+            card3Title: "Camilan Desa & Kemping",
+            card3Desc: "Sajikan hangat pisang goreng renyah, singkong goreng, serta lahan lapang bagi Anda yang ingin mendirikan tenda camp.",
+            card3Img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80",
+
+            waPhone: "628129850505",
+            addressText: "Cinangka, Kec. Cinangka, Kabupaten Serang, Banten 42167",
+            adminPassword: "kananga123"
+        };
+
+        window.currentSiteData = { ...DEFAULT_SITE_CONTENT };
+        window.isAdminLoggedIn = false;
+
+        // Initialize Firestore listener after authentication
+        async function initFirebaseSync() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'cms_content', 'main_page');
+                
+                onSnapshot(docRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.data();
+                        window.currentSiteData = { ...DEFAULT_SITE_CONTENT, ...data };
+                        applyDataToDOM(window.currentSiteData);
+                    } else {
+                        applyDataToDOM(DEFAULT_SITE_CONTENT);
+                    }
+                }, (error) => {
+                    console.error("Firestore sync error:", error);
+                    applyDataToDOM(DEFAULT_SITE_CONTENT);
+                });
+            } catch (err) {
+                console.warn("Operating with local state:", err);
+                applyDataToDOM(DEFAULT_SITE_CONTENT);
+            }
+        }
+
+        // Apply state data to page elements
+        function applyDataToDOM(data) {
+            if (document.getElementById('display-hero-badge')) document.getElementById('display-hero-badge').innerText = data.heroBadge;
+            if (document.getElementById('display-hero-title1')) document.getElementById('display-hero-title1').innerText = data.heroTitle1;
+            if (document.getElementById('display-hero-title2')) document.getElementById('display-hero-title2').innerText = data.heroTitle2;
+            if (document.getElementById('display-hero-subtitle')) document.getElementById('display-hero-subtitle').innerText = data.heroSubtitle;
+            if (document.getElementById('display-hero-bg')) document.getElementById('display-hero-bg').src = data.heroBgUrl;
+
+            if (document.getElementById('display-kedai-badge')) document.getElementById('display-kedai-badge').innerHTML = `<i class="fa-solid fa-mug-saucer mr-1"></i> ${data.kedaiBadge}`;
+            if (document.getElementById('display-kedai-title')) document.getElementById('display-kedai-title').innerText = data.kedaiTitle;
+            if (document.getElementById('display-kedai-desc')) document.getElementById('display-kedai-desc').innerText = data.kedaiDesc;
+
+            if (document.getElementById('display-card1-title')) document.getElementById('display-card1-title').innerText = data.card1Title;
+            if (document.getElementById('display-card1-desc')) document.getElementById('display-card1-desc').innerText = data.card1Desc;
+            if (document.getElementById('display-card1-img')) document.getElementById('display-card1-img').src = data.card1Img;
+
+            if (document.getElementById('display-card2-title')) document.getElementById('display-card2-title').innerText = data.card2Title;
+            if (document.getElementById('display-card2-desc')) document.getElementById('display-card2-desc').innerText = data.card2Desc;
+            if (document.getElementById('display-card2-img')) document.getElementById('display-card2-img').src = data.card2Img;
+
+            if (document.getElementById('display-card3-title')) document.getElementById('display-card3-title').innerText = data.card3Title;
+            if (document.getElementById('display-card3-desc')) document.getElementById('display-card3-desc').innerText = data.card3Desc;
+            if (document.getElementById('display-card3-img')) document.getElementById('display-card3-img').src = data.card3Img;
+
+            if (document.getElementById('display-address-text')) document.getElementById('display-address-text').innerText = data.addressText;
+            if (document.getElementById('display-footer-phone')) document.getElementById('display-footer-phone').innerText = `+${data.waPhone}`;
+
+            // Update WA phone reference globally
+            window.PHONE_NUMBER = data.waPhone || "628129850505";
+        }
+
+        // Save CMS changes to Firestore
+        window.saveAdminCMSData = async function() {
+            const updatedData = {
+                heroBadge: document.getElementById('input-heroBadge').value,
+                heroTitle1: document.getElementById('input-heroTitle1').value,
+                heroTitle2: document.getElementById('input-heroTitle2').value,
+                heroSubtitle: document.getElementById('input-heroSubtitle').value,
+                heroBgUrl: document.getElementById('input-heroBgUrl').value,
+
+                kedaiBadge: document.getElementById('input-kedaiBadge').value,
+                kedaiTitle: document.getElementById('input-kedaiTitle').value,
+                kedaiDesc: document.getElementById('input-kedaiDesc').value,
+
+                card1Title: document.getElementById('input-card1Title').value,
+                card1Desc: document.getElementById('input-card1Desc').value,
+                card1Img: document.getElementById('input-card1Img').value,
+
+                card2Title: document.getElementById('input-card2Title').value,
+                card2Desc: document.getElementById('input-card2Desc').value,
+                card2Img: document.getElementById('input-card2Img').value,
+
+                card3Title: document.getElementById('input-card3Title').value,
+                card3Desc: document.getElementById('input-card3Desc').value,
+                card3Img: document.getElementById('input-card3Img').value,
+
+                waPhone: document.getElementById('input-waPhone').value,
+                addressText: document.getElementById('input-addressText').value,
+                adminPassword: document.getElementById('input-adminPassword').value || "kananga123"
+            };
+
+            window.currentSiteData = updatedData;
+            applyDataToDOM(updatedData);
+
+            try {
+                if (db) {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'cms_content', 'main_page');
+                    await setDoc(docRef, updatedData);
+                }
+            } catch (err) {
+                console.error("Error saving content to Firestore:", err);
+            }
+
+            closeAdminPanelModal();
+            showToast("Konten & Gambar berhasil diperbarui!");
+        };
+
+        window.resetToDefaultData = async function() {
+            window.currentSiteData = { ...DEFAULT_SITE_CONTENT };
+            applyDataToDOM(DEFAULT_SITE_CONTENT);
+            populateCMSForm(DEFAULT_SITE_CONTENT);
+
+            try {
+                if (db) {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'cms_content', 'main_page');
+                    await setDoc(docRef, DEFAULT_SITE_CONTENT);
+                }
+            } catch (err) {
+                console.error("Error resetting data:", err);
+            }
+
+            showToast("Konten dikembalikan ke standar awal.");
+        };
+
+        // Initialize Firebase on load
+        initFirebaseSync();
+    </script>
+
+    <!-- UI Action Interactivity Script -->
+    <script>
+        let PHONE_NUMBER = "628129850505";
+
+        // Mobile Menu Drawer Handler
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // WhatsApp direct contact trigger
+        function contactWA(customMessage) {
+            const targetPhone = window.PHONE_NUMBER || PHONE_NUMBER;
+            const encodedText = encodeURIComponent(customMessage);
+            window.open(`https://wa.me/${targetPhone}?text=${encodedText}`, '_blank');
+        }
+
+        // Admin Login Modal Controls
+        function openAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.remove('hidden');
+            document.getElementById('admin-password-input').value = '';
+            document.getElementById('login-error-msg').classList.add('hidden');
+        }
+
+        function closeAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const inputPass = document.getElementById('admin-password-input').value;
+            const validPass = (window.currentSiteData && window.currentSiteData.adminPassword) 
+                ? window.currentSiteData.adminPassword 
+                : 'kananga123';
+
+            if (inputPass === validPass) {
+                window.isAdminLoggedIn = true;
+                closeAdminLoginModal();
+                document.getElementById('admin-status-bar').classList.remove('hidden');
+                showToast("Berhasil login sebagai Admin!");
+                openAdminPanelModal();
+            } else {
+                document.getElementById('login-error-msg').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            window.isAdminLoggedIn = false;
+            document.getElementById('admin-status-bar').classList.add('hidden');
+            showToast("Anda telah keluar dari Mode Admin.");
+        }
+
+        // Admin Panel Drawer Controls
+        function openAdminPanelModal() {
+            if (!window.isAdminLoggedIn) {
+                openAdminLoginModal();
+                return;
+            }
+            populateCMSForm(window.currentSiteData || {});
+            document.getElementById('admin-cms-modal').classList.remove('hidden');
+        }
+
+        function closeAdminPanelModal() {
+            document.getElementById('admin-cms-modal').classList.add('hidden');
+        }
+
+        function populateCMSForm(data) {
+            document.getElementById('input-heroBadge').value = data.heroBadge || '';
+            document.getElementById('input-heroTitle1').value = data.heroTitle1 || '';
+            document.getElementById('input-heroTitle2').value = data.heroTitle2 || '';
+            document.getElementById('input-heroSubtitle').value = data.heroSubtitle || '';
+            document.getElementById('input-heroBgUrl').value = data.heroBgUrl || '';
+
+            document.getElementById('input-kedaiBadge').value = data.kedaiBadge || '';
+            document.getElementById('input-kedaiTitle').value = data.kedaiTitle || '';
+            document.getElementById('input-kedaiDesc').value = data.kedaiDesc || '';
+
+            document.getElementById('input-card1Title').value = data.card1Title || '';
+            document.getElementById('input-card1Desc').value = data.card1Desc || '';
+            document.getElementById('input-card1Img').value = data.card1Img || '';
+
+            document.getElementById('input-card2Title').value = data.card2Title || '';
+            document.getElementById('input-card2Desc').value = data.card2Desc || '';
+            document.getElementById('input-card2Img').value = data.card2Img || '';
+
+            document.getElementById('input-card3Title').value = data.card3Title || '';
+            document.getElementById('input-card3Desc').value = data.card3Desc || '';
+            document.getElementById('input-card3Img').value = data.card3Img || '';
+
+            document.getElementById('input-waPhone').value = data.waPhone || '628129850505';
+            document.getElementById('input-addressText').value = data.addressText || '';
+            document.getElementById('input-adminPassword').value = data.adminPassword || 'kananga123';
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notif');
+            document.getElementById('toast-text').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
